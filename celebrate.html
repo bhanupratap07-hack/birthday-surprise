@@ -377,7 +377,8 @@
                     confetti.style.animationDelay = Math.random() * 1 + 's';
                     confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
                     
-                    confettiContainer.appendChild(conf confetti);
+                    // THIS IS THE FIXED LINE
+                    confettiContainer.appendChild(confetti);
                     
                     // Remove confetti after animation
                     setTimeout(() => {
