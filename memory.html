@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,11 +66,10 @@
             left: 10px;
         }
         
-        /* UPDATED: This now uses a fade-in and allows text wrapping */
         .typewriter {
-            white-space: normal; /* Allows text to wrap */
+            white-space: normal;
             margin: 0 auto;
-            animation: fadeIn 1s ease-in-out; /* Use fade-in instead of typing */
+            animation: fadeIn 1s ease-in-out;
         }
         
         @keyframes typing {
@@ -137,12 +136,12 @@
             display: flex;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             gap: 20px;
-            padding: 0 50px;
+            padding: 0 50px; /* Padding for desktop */
         }
         
         .carousel-item {
-            flex: 0 0 300px;
-            height: 400px;
+            flex: 0 0 300px; /* Width for desktop */
+            height: 400px; /* Height for desktop */
             border-radius: 20px;
             overflow: hidden;
             position: relative;
@@ -196,6 +195,69 @@
                 transform: translateY(0); 
             }
         }
+
+        /* ================================== */
+        /* MOBILE STYLES */
+        /* ================================== */
+        @media (max-width: 640px) {
+            body {
+                padding-top: 2rem; /* Add some space at the top */
+            }
+
+            /* Make initial mirror smaller */
+            #initialMirror .w-80 { width: 20rem; /* 320px */ }
+            #initialMirror .h-80 { height: 20rem; }
+            #initialMirror .md\:w-96 { width: 20rem; }
+            #initialMirror .md\:h-96 { height: 20rem; }
+
+
+            .carousel-track {
+                padding: 0 20px; /* Less padding on mobile */
+                gap: 16px; /* Slightly less gap */
+            }
+
+            .carousel-item {
+                flex: 0 0 240px; /* Smaller width for mobile */
+                height: 320px; /* Smaller height for mobile */
+            }
+
+            /* Adjust arrow button size and position */
+            #arrowLeft, #arrowRight {
+                padding: 8px;
+                top: 40%; /* Adjust vertical position */
+            }
+            #arrowLeft { left: -5px; }
+            #arrowRight { right: -5px; }
+
+            /* Adjust font sizes */
+            h1.text-4xl {
+                font-size: 2.25rem; /* text-4xl */
+                line-height: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            /* Adjust text area below */
+            .text-caption-area {
+                font-size: 1rem; /* text-base */
+                line-height: 1.5rem;
+                max-height: 7rem; /* max-h-28 */
+            }
+
+            /* Adjust download button */
+            .download-btn {
+                font-size: 1rem;
+                padding: 10px 20px;
+                margin-top: 1rem;
+            }
+
+            /* Adjust next page button */
+            .next-page-btn {
+                font-size: 0.875rem;
+                padding: 8px 16px;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 overflow-hidden relative">
@@ -213,7 +275,7 @@
         <div class="sparkle" style="top: 15%; right: 60%; animation-delay: 4.5s;"></div>
     </div>
     
-    <div class="flex flex-col items-center justify-center min-h-screen p-8">
+    <div class="flex flex-col items-center justify-center min-h-screen p-4">
         <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-8 text-center">
             Mirror of Memories
         </h1>
@@ -239,9 +301,10 @@
                 </div>
         </div>
         
-        <div class="mt-8 px-4 max-h-32 overflow-y-auto max-w-md w-full">
+        <div class="mt-8 px-4 max-h-32 overflow-y-auto max-w-md w-full text-caption-area">
             <p id="typewriterText" class="text-xl md:text-2xl text-gray-700 font-medium text-center"></p>
         </div>
+        
         <button id="downloadBtn" class="download-btn text-white px-8 py-3 rounded-full font-semibold text-lg mt-6 hidden shadow-lg">
             💝 Download this memory
         </button>
@@ -331,7 +394,6 @@
                 item.className = `carousel-item ${index === currentPhotoIndex ? 'active' : ''}`;
                 item.onclick = () => selectPhoto(index);
                 
-                // UPDATED: Removed the .carousel-caption div
                 item.innerHTML = `
                     <img src="${memory.photo}" alt="Memory ${index + 1}">
                 `;
@@ -364,14 +426,17 @@
         // Update carousel position to center active item
         function updateCarouselPosition() {
             const track = carouselTrack;
-            const itemWidth = 320; // 300px + 20px gap
+            // UPDATED: Check window width to decide itemWidth
+            const isMobile = window.innerWidth < 640;
+            const itemWidth = isMobile ? 240 + 16 : 300 + 20; // width + gap
+            
             const containerWidth = carouselContainer.offsetWidth;
             const offset = (containerWidth / 2) - (itemWidth / 2) - (currentPhotoIndex * itemWidth);
             
             track.style.transform = `translateX(${offset}px)`;
         }
         
-        // UPDATED: This function now fades the text in
+        // This function now fades the text in
         function showTypewriter(text) {
             // Instantly hide old text
             typewriterText.style.opacity = '0';
