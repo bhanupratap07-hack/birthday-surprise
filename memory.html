@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -182,8 +182,6 @@
             z-index: 1;
         }
         
-        /* REMOVED: The CSS for .carousel-caption is no longer needed */
-        
         .slide-in {
             animation: slideIn 0.8s ease-out;
         }
@@ -241,10 +239,9 @@
                 </div>
         </div>
         
-        <div class="mt-8 flex justify-center px-4">
-            <p id="typewriterText" class="text-xl md:text-2xl text-gray-700 font-medium text-center max-w-md"></p>
+        <div class="mt-8 px-4 max-h-32 overflow-y-auto max-w-md w-full">
+            <p id="typewriterText" class="text-xl md:text-2xl text-gray-700 font-medium text-center"></p>
         </div>
-        
         <button id="downloadBtn" class="download-btn text-white px-8 py-3 rounded-full font-semibold text-lg mt-6 hidden shadow-lg">
             💝 Download this memory
         </button>
