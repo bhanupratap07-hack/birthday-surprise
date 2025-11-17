@@ -66,12 +66,11 @@
             left: 10px;
         }
         
+        /* UPDATED: This now uses a fade-in and allows text wrapping */
         .typewriter {
-            overflow: hidden;
-            border-right: 3px solid rgba(255, 255, 255, 0.8);
-            white-space: nowrap;
+            white-space: normal; /* Allows text to wrap */
             margin: 0 auto;
-            animation: typing 3s steps(40, end), blink-caret 0.8s infinite;
+            animation: fadeIn 1s ease-in-out; /* Use fade-in instead of typing */
         }
         
         @keyframes typing {
@@ -183,23 +182,7 @@
             z-index: 1;
         }
         
-        .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            color: white;
-            padding: 20px;
-            text-align: center;
-            z-index: 2;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .carousel-item.active .carousel-caption {
-            transform: translateY(0);
-        }
+        /* REMOVED: The CSS for .carousel-caption is no longer needed */
         
         .slide-in {
             animation: slideIn 0.8s ease-out;
@@ -258,7 +241,7 @@
                 </div>
         </div>
         
-        <div class="mt-8 h-16 flex items-center justify-center">
+        <div class="mt-8 flex justify-center px-4">
             <p id="typewriterText" class="text-xl md:text-2xl text-gray-700 font-medium text-center max-w-md"></p>
         </div>
         
@@ -284,7 +267,7 @@
             { photo: 'pic1.jpg', caption: 'This smile… my forever favorite' },
             { photo: 'pic2.jpg', caption: 'That moment… when time stood still' },
             { photo: 'pic3.png', caption: 'The story of Indian startups is of incredible energy and ambition. In a few short years, we have moved from a fledgling ecosystem to the third-largest in the world with more than 100,000 recognized startups and more than 100 unicorns. This is more than a statistic; its a bedrock, an enduring launchpad for the dream of Viksit Bharat @2047. We have to make a big transition-from being the best at adopting ideas to becoming the source of new, original innovation that people across the world will adopt. It is also time to take the startup fire from just a few large cities into every corner of our nation. ' },
-            { photo: 'pic4.png', caption: 'hello' },
+            { photo: 'pic4.png', caption: 'hello' }, // Corrected comma
             { photo: 'pic5.png', caption: 'Forever and always, my heart' }
         ];
         
@@ -297,9 +280,6 @@
         const carouselTrack = document.getElementById('carouselTrack');
         const typewriterText = document.getElementById('typewriterText');
         const downloadBtn = document.getElementById('downloadBtn');
-        // const bgMusic = document.getElementById('bgMusic');
-        // const musicBtn = document.getElementById('musicBtn');
-        // const musicIcon = document.getElementById('musicIcon');
         
         // Unlock memories and show carousel
         function unlockMemories() {
@@ -326,9 +306,6 @@
 
                     // Show download button
                     downloadBtn.classList.remove('hidden');
-
-                    // Start background music
-                    // if (bgMusic) bgMusic.play().catch(e => console.log('Audio autoplay blocked'));
 
                     // Show initial caption
                     showTypewriter(memories[currentPhotoIndex].caption);
@@ -357,11 +334,9 @@
                 item.className = `carousel-item ${index === currentPhotoIndex ? 'active' : ''}`;
                 item.onclick = () => selectPhoto(index);
                 
+                // UPDATED: Removed the .carousel-caption div
                 item.innerHTML = `
                     <img src="${memory.photo}" alt="Memory ${index + 1}">
-                    <div class="carousel-caption">
-                        <p class="text-sm font-medium">${memory.caption}</p>
-                    </div>
                 `;
                 
                 carouselTrack.appendChild(item);
@@ -384,7 +359,7 @@
                 // Update carousel position
                 updateCarouselPosition();
                 
-                // Show typewriter effect
+                // Show caption with fade effect
                 showTypewriter(memories[currentPhotoIndex].caption);
             }
         }
@@ -399,15 +374,18 @@
             track.style.transform = `translateX(${offset}px)`;
         }
         
-        // Typewriter effect
+        // UPDATED: This function now fades the text in
         function showTypewriter(text) {
-            typewriterText.textContent = '';
+            // Instantly hide old text
+            typewriterText.style.opacity = '0';
             typewriterText.classList.remove('typewriter');
             
             setTimeout(() => {
+                // Set new text and fade it in
                 typewriterText.textContent = text;
-                typewriterText.classList.add('typewriter');
-            }, 100);
+                typewriterText.classList.add('typewriter'); // This class now triggers fadeIn
+                typewriterText.style.opacity = '1';
+            }, 200); // A small delay to make the transition smooth
         }
         
         // Download current photo
@@ -419,21 +397,6 @@
                 link.click();
             }
         });
-        
-        /*
-        // Music control
-        if (musicBtn) {
-            musicBtn.addEventListener('click', () => {
-                if (bgMusic.paused) {
-                    bgMusic.play();
-                    musicIcon.textContent = '🎵';
-                } else {
-                    bgMusic.pause();
-                    musicIcon.textContent = '🔇';
-                }
-            });
-        }
-        */
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
