@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -56,20 +56,24 @@
             border-radius: 50%;
         }
         
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
+        .heart::before { top: -10px; left: 0; }
+        .heart::after { top: 0; left: 10px; }
         
-        .heart::after {
-            top: 0;
-            left: 10px;
-        }
-        
+        /* --- FIXED CENTERING HERE --- */
         .typewriter {
             white-space: normal;
-            margin: 0 auto;
+            margin: 0 auto; /* Centers the block */
+            text-align: center; /* Centers the text inside */
+            display: block;
+            width: 100%;
             animation: fadeIn 1s ease-in-out;
+        }
+
+        .text-caption-area {
+            display: flex;
+            justify-content: center; /* align flex children to center */
+            text-align: center; /* fallback */
+            width: 100%;
         }
         
         @keyframes typing {
@@ -77,23 +81,14 @@
             to { width: 100% }
         }
         
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: rgba(255, 255, 255, 0.8); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 1s ease-in-out;
-        }
+        .fade-in { animation: fadeIn 1s ease-in-out; }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
 
-        .fade-out {
-            animation: fadeOut 0.7s ease-out forwards;
-        }
+        .fade-out { animation: fadeOut 0.7s ease-out forwards; }
 
         @keyframes fadeOut {
             from { opacity: 1; }
@@ -136,12 +131,12 @@
             display: flex;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             gap: 20px;
-            padding: 0 50px; /* Padding for desktop */
+            padding: 0 50px; 
         }
         
         .carousel-item {
-            flex: 0 0 300px; /* Width for desktop */
-            height: 400px; /* Height for desktop */
+            flex: 0 0 300px; 
+            height: 400px; 
             border-radius: 20px;
             overflow: hidden;
             position: relative;
@@ -181,76 +176,49 @@
             z-index: 1;
         }
         
-        .slide-in {
-            animation: slideIn 0.8s ease-out;
-        }
+        .slide-in { animation: slideIn 0.8s ease-out; }
         
         @keyframes slideIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(50px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ================================== */
         /* MOBILE STYLES */
-        /* ================================== */
         @media (max-width: 640px) {
-            body {
-                padding-top: 2rem; /* Add some space at the top */
-            }
-
-            /* Make initial mirror smaller */
-            #initialMirror .w-80 { width: 20rem; /* 320px */ }
+            body { padding-top: 2rem; }
+            #initialMirror .w-80 { width: 20rem; }
             #initialMirror .h-80 { height: 20rem; }
             #initialMirror .md\:w-96 { width: 20rem; }
             #initialMirror .md\:h-96 { height: 20rem; }
 
+            .carousel-track { padding: 0 20px; gap: 16px; }
+            .carousel-item { flex: 0 0 240px; height: 320px; }
 
-            .carousel-track {
-                padding: 0 20px; /* Less padding on mobile */
-                gap: 16px; /* Slightly less gap */
-            }
-
-            .carousel-item {
-                flex: 0 0 240px; /* Smaller width for mobile */
-                height: 320px; /* Smaller height for mobile */
-            }
-
-            /* Adjust arrow button size and position */
             #arrowLeft, #arrowRight {
                 padding: 8px;
-                top: 40%; /* Adjust vertical position */
+                top: 40%; 
             }
             #arrowLeft { left: -5px; }
             #arrowRight { right: -5px; }
 
-            /* Adjust font sizes */
             h1.text-4xl {
-                font-size: 2.25rem; /* text-4xl */
+                font-size: 2.25rem; 
                 line-height: 2.5rem;
                 margin-bottom: 1rem;
             }
 
-            /* Adjust text area below */
             .text-caption-area {
-                font-size: 1rem; /* text-base */
+                font-size: 1rem; 
                 line-height: 1.5rem;
-                max-height: 7rem; /* max-h-28 */
+                max-height: 7rem; 
             }
 
-            /* Adjust download button */
             .download-btn {
                 font-size: 1rem;
                 padding: 10px 20px;
                 margin-top: 1rem;
             }
 
-            /* Adjust next page button */
             .next-page-btn {
                 font-size: 0.875rem;
                 padding: 8px 16px;
@@ -298,11 +266,11 @@
                 &#8594;
             </button>
             <div class="carousel-track" id="carouselTrack">
-                </div>
+            </div>
         </div>
         
         <div class="mt-8 px-4 max-h-32 overflow-y-auto max-w-md w-full text-caption-area">
-            <p id="typewriterText" class="text-xl md:text-2xl text-gray-700 font-medium text-center"></p>
+            <p id="typewriterText" class="text-xl md:text-2xl text-gray-700 font-medium text-center w-full block"></p>
         </div>
         
         <button id="downloadBtn" class="download-btn text-white px-8 py-3 rounded-full font-semibold text-lg mt-6 hidden shadow-lg">
@@ -318,17 +286,17 @@
         document.querySelector('.next-page-btn').addEventListener('click', function() {
             document.body.classList.add('fade-out');
             setTimeout(function() {
-                window.location.href = "cake.html"; // Change to your next page
-            }, 700); // Match the transition duration
+                window.location.href = "cake.html"; 
+            }, 700); 
         });
 
         // Photos and captions data
         const memories = [
             { photo: 'pic1.jpg', caption: 'This smile… my forever favorite' },
-            { photo: 'pic2.jpg', caption: '  My Lifeline  🥰 🧿' },
-            { photo: 'pic3.png', caption: '   My Lovely Sister 🌸 🌸 ' },
-            { photo: 'pic4.png', caption: '   You and Always You 💕 💕 ' }, // Corrected comma
-            { photo: 'pic5.png', caption: '   Forever and always, my heart 💗 💝' }
+            { photo: 'pic2.jpg', caption: 'My Lifeline 🥰 🧿' },
+            { photo: 'pic3.png', caption: 'My Lovely Sister 🌸 🌸 ' },
+            { photo: 'pic4.png', caption: 'You and Always You 💕 💕 ' }, 
+            { photo: 'pic5.png', caption: 'Forever and always, my heart 💗 💝' }
         ];
         
         let currentPhotoIndex = 0;
@@ -341,43 +309,32 @@
         const typewriterText = document.getElementById('typewriterText');
         const downloadBtn = document.getElementById('downloadBtn');
         
-        // Unlock memories and show carousel
         function unlockMemories() {
             if (!memoriesUnlocked) {
                 memoriesUnlocked = true;
-
-                // Hide initial mirror
                 initialMirror.style.opacity = '0';
                 initialMirror.style.transform = 'scale(0.8)';
 
                 setTimeout(() => {
                     initialMirror.classList.add('hidden');
-
-                    // Show carousel
                     carouselContainer.classList.remove('hidden');
                     carouselContainer.classList.add('slide-in');
-
-                    // Show arrow buttons
                     document.getElementById('arrowLeft').style.display = '';
                     document.getElementById('arrowRight').style.display = '';
-
-                    // Create carousel items
                     createCarousel();
-
-                    // Show download button
                     downloadBtn.classList.remove('hidden');
-
-                    // Show initial caption
                     showTypewriter(memories[currentPhotoIndex].caption);
                 }, 500);
             }
         }
+        
         document.getElementById('arrowLeft').addEventListener('click', (e) => {
             e.stopPropagation();
             if (memoriesUnlocked && currentPhotoIndex > 0) {
                 selectPhoto(currentPhotoIndex - 1);
             }
         });
+        
         document.getElementById('arrowRight').addEventListener('click', (e) => {
             e.stopPropagation();
             if (memoriesUnlocked && currentPhotoIndex < memories.length - 1) {
@@ -385,72 +342,49 @@
             }
         });
         
-        // Create carousel items
         function createCarousel() {
             carouselTrack.innerHTML = '';
-            
             memories.forEach((memory, index) => {
                 const item = document.createElement('div');
                 item.className = `carousel-item ${index === currentPhotoIndex ? 'active' : ''}`;
                 item.onclick = () => selectPhoto(index);
-                
-                item.innerHTML = `
-                    <img src="${memory.photo}" alt="Memory ${index + 1}">
-                `;
-                
+                item.innerHTML = `<img src="${memory.photo}" alt="Memory ${index + 1}">`;
                 carouselTrack.appendChild(item);
             });
-            
             updateCarouselPosition();
         }
         
-        // Select photo and move carousel
         function selectPhoto(index) {
             if (index !== currentPhotoIndex) {
                 currentPhotoIndex = index;
-                
-                // Update active state
                 const items = document.querySelectorAll('.carousel-item');
                 items.forEach((item, i) => {
                     item.classList.toggle('active', i === index);
                 });
-                
-                // Update carousel position
                 updateCarouselPosition();
-                
-                // Show caption with fade effect
                 showTypewriter(memories[currentPhotoIndex].caption);
             }
         }
         
-        // Update carousel position to center active item
         function updateCarouselPosition() {
             const track = carouselTrack;
-            // UPDATED: Check window width to decide itemWidth
             const isMobile = window.innerWidth < 640;
-            const itemWidth = isMobile ? 240 + 16 : 300 + 20; // width + gap
-            
+            const itemWidth = isMobile ? 240 + 16 : 300 + 20; 
             const containerWidth = carouselContainer.offsetWidth;
             const offset = (containerWidth / 2) - (itemWidth / 2) - (currentPhotoIndex * itemWidth);
-            
             track.style.transform = `translateX(${offset}px)`;
         }
         
-        // This function now fades the text in
         function showTypewriter(text) {
-            // Instantly hide old text
             typewriterText.style.opacity = '0';
             typewriterText.classList.remove('typewriter');
-            
             setTimeout(() => {
-                // Set new text and fade it in
                 typewriterText.textContent = text;
-                typewriterText.classList.add('typewriter'); // This class now triggers fadeIn
+                typewriterText.classList.add('typewriter'); 
                 typewriterText.style.opacity = '1';
-            }, 200); // A small delay to make the transition smooth
+            }, 200); 
         }
         
-        // Download current photo
         downloadBtn.addEventListener('click', () => {
             if (memoriesUnlocked) {
                 const link = document.createElement('a');
@@ -460,7 +394,6 @@
             }
         });
         
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (memoriesUnlocked) {
                 if (e.key === 'ArrowLeft' && currentPhotoIndex > 0) {
@@ -471,14 +404,12 @@
             }
         });
         
-        // Responsive carousel position update
         window.addEventListener('resize', () => {
             if (memoriesUnlocked) {
                 updateCarouselPosition();
             }
         });
         
-        // Create more sparkles dynamically
         function createSparkle() {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
@@ -486,13 +417,9 @@
             sparkle.style.left = Math.random() * 100 + '%';
             sparkle.style.animationDelay = Math.random() * 2 + 's';
             document.body.appendChild(sparkle);
-            
-            setTimeout(() => {
-                sparkle.remove();
-            }, 2000);
+            setTimeout(() => { sparkle.remove(); }, 2000);
         }
         
-        // Generate sparkles periodically
         setInterval(createSparkle, 3000);
     </script>
 </body>
