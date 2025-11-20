@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -231,13 +231,13 @@
             }, 700); 
         });
 
-        // Photos and captions data
+        // Photos and captions data - UPDATED FOR PNG FILES
         const memories = [
             { photo: 'pic1.jpg', caption: 'This smile… my forever favorite' },
             { photo: 'pic2.jpg', caption: 'My Lifeline 🥰🧿' },
-            { photo: 'pic3.jpg', caption: 'My Lovely Sister 🌸🌸' },
-            { photo: 'pic4.jpg', caption: 'You and Always You 💕💕' },
-            { photo: 'pic5.jpg', caption: 'Forever and always, my heart 💓💓' }
+            { photo: 'pic3.png', caption: 'My Lovely Sister 🌸🌸' },
+            { photo: 'pic4.png', caption: 'You and Always You 💕💕' },
+            { photo: 'pic5.png', caption: 'Forever and always, my heart 💓💓' }
         ];
         
         let currentPhotoIndex = 0;
@@ -248,13 +248,6 @@
         const carouselTrack = document.getElementById('carouselTrack');
         const typewriterText = document.getElementById('typewriterText');
         const downloadBtn = document.getElementById('downloadBtn');
-        
-        // MUSIC VARIABLES COMMENTED OUT
-        /*
-        const bgMusic = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicBtn');
-        const musicIcon = document.getElementById('musicIcon');
-        */
         
         function unlockMemories() {
             if (!memoriesUnlocked) {
@@ -268,10 +261,6 @@
                     carouselContainer.classList.add('slide-in');
                     createCarousel();
                     downloadBtn.classList.remove('hidden');
-                    
-                    // AUDIO AUTOPLAY COMMENTED OUT
-                    // bgMusic.play().catch(e => console.log('Audio autoplay blocked'));
-                    
                     showTypewriter(memories[currentPhotoIndex].caption);
                 }, 500);
             }
@@ -336,19 +325,6 @@
                 link.click();
             }
         });
-        
-        // MUSIC CONTROL LOGIC COMMENTED OUT
-        /*
-        musicBtn.addEventListener('click', () => {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                musicIcon.textContent = '🎵';
-            } else {
-                bgMusic.pause();
-                musicIcon.textContent = '🔇';
-            }
-        });
-        */
         
         window.addEventListener('resize', () => {
             if (memoriesUnlocked) updateCarouselPosition();
